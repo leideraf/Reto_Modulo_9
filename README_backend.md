@@ -623,33 +623,7 @@ La API habilita:
 
 Esto permite trabajar correctamente con el frontend y con cookies de sesion.
 
-## Consideraciones de seguridad implementadas
 
-- hash de contrasenas con bcrypt
-- tokens JWT firmados
-- expiracion de token configurable
-- revocacion de tokens al hacer logout
-- cookies HTTP-only
-- validacion por rol en rutas protegidas
-- bloqueo de acceso a recursos ajenos para estudiantes en inscripciones y calificaciones
-
-## Estado actual del proyecto
-
-Observaciones importantes basadas en el codigo actual:
-
-- las tablas se crean automaticamente al iniciar la app; no se esta usando un flujo activo de migraciones aunque `alembic` existe en dependencias
-- el archivo `.env` del repositorio apunta a PostgreSQL en `localhost:5433`
-- existe un entorno virtual local `venv/` dentro del backend
-- el README documenta el estado real implementado hoy en el repositorio
-
-## Sugerencias de mejora futuras
-
-- agregar migraciones versionadas con Alembic
-- incorporar pruebas unitarias e integracion
-- agregar paginacion y filtros en listados
-- documentar seeds iniciales o usuario administrador bootstrap
-- agregar logging estructurado
-- agregar rate limiting y auditoria
 
 ## Comando rapido de arranque
 

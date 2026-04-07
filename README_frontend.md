@@ -473,24 +473,6 @@ Resumen operativo:
 4. consulta recursos academicos via Axios
 5. muestra formularios y tablas para operar sobre esos recursos
 
-## Estado actual del proyecto
-
-Observaciones importantes basadas en el codigo actual:
-
-- el frontend si tiene integracion completa con autenticacion y recursos principales del backend
-- existe consumo tipado de la API por modulo
-- la gestion de roles en UI hoy se usa para listar roles y asignarlos al crear usuarios
-- la variable `VITE_API_BASE_URL` esta soportada aunque no se detecta un `.env` versionado en esta carpeta
-- el token se mantiene en memoria y la sesion se rehidrata consultando al backend
-
-## Sugerencias de mejora futuras
-
-- agregar persistencia mas robusta del token si el flujo de negocio lo requiere
-- agregar tests unitarios y de componentes
-- mejorar los estados skeleton de carga
-- agregar filtros, busqueda y paginacion en tablas
-- agregar formularios dedicados para administracion de roles desde UI
-- incorporar confirmaciones mas ricas para acciones sensibles
 
 ## Comando rapido de arranque
 

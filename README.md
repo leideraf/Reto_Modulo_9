@@ -183,49 +183,6 @@ npm run dev
 - Backend: `http://127.0.0.1:8000`
 - Swagger UI: `http://127.0.0.1:8000/docs`
 
-## Instalacion por partes
-
-### Solo backend
-
-```powershell
-cd universidad-digital\backend
-py -m venv venv
-.\venv\Scripts\Activate
-pip install -r requirements.txt
-python -m uvicorn app.main:app --reload
-```
-
-Variables de entorno minimas en `universidad-digital/backend/.env`:
-
-```env
-APP_ENV=development
-APP_DATABASE_URL=postgresql+psycopg://postgres:admin@localhost:5433/universidad-digital
-APP_JWT_SECRET=change_me
-APP_CORS_ORIGINS=["http://localhost:5173","http://127.0.0.1:5173"]
-```
-
-### Solo frontend
-
-```powershell
-cd universidad-digital\frontend
-npm install
-npm run dev
-```
-
-Variable de entorno opcional en `universidad-digital/frontend/.env`:
-
-```env
-VITE_API_BASE_URL=http://127.0.0.1:8000
-```
-
-## Herramientas de desarrollo
-
-- **FastAPI Docs:** pruebas de endpoints desde `/docs`
-- **Uvicorn:** servidor de desarrollo del backend
-- **Vite:** servidor de desarrollo rapido para el frontend
-- **ESLint:** validacion estatica del frontend
-- **React Hook Form + Zod:** validacion de formularios
-- **Axios:** comunicacion con la API
 
 ## Scripts utiles
 
@@ -251,14 +208,9 @@ Si necesitas mas detalle tecnico por modulo, puedes revisar:
 - [README_backend.md](./README_backend.md)
 - [README_frontend.md](./README_frontend.md)
 
-## Estado actual
 
-El proyecto ya cuenta con:
+Autor: Leider Elian Arias Franco
+Programa: Python
+Módulo:
+Video:
 
-- autenticacion funcional
-- rutas protegidas por rol
-- integracion completa entre frontend y backend
-- CRUD principal de modulos academicos
-- dashboards diferenciados por perfil
-
-Todavia puede crecer con pruebas automatizadas, migraciones versionadas, paginacion y mas refinamiento visual, pero la base funcional del sistema ya esta implementada.
