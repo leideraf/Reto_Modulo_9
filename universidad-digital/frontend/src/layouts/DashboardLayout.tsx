@@ -78,19 +78,19 @@ const adminItems: NavItem[] = [
   { to: "/admin/subjects", label: "Materias", Icon: IconBook },
   { to: "/admin/periods", label: "Periodos", Icon: IconCalendar },
   { to: "/admin/enrollments", label: "Inscripciones", Icon: IconLayers },
-  { to: "/admin/grades", label: "Calificaciones", Icon: IconChart },
+  { to: "/admin/grades", label: "Calificaciones", Icon: IconChart }
 ];
 
 const teacherItems: NavItem[] = [
   { to: "/teacher", label: "Panel docente", Icon: IconDashboard },
-  { to: "/teacher/grades", label: "Calificaciones", Icon: IconChart },
+  { to: "/teacher/grades", label: "Calificaciones", Icon: IconChart }
 ];
 
 const studentItems: NavItem[] = [
   { to: "/student", label: "Panel estudiante", Icon: IconDashboard },
   { to: "/student/subjects", label: "Materias", Icon: IconBook },
   { to: "/student/enrollments", label: "Inscripciones", Icon: IconLayers },
-  { to: "/student/grades", label: "Calificaciones", Icon: IconChart },
+  { to: "/student/grades", label: "Calificaciones", Icon: IconChart }
 ];
 
 export function DashboardLayout({ children }: { children: ReactNode }) {
@@ -110,58 +110,68 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
   }
 
   return (
-    <div>
-      <header className="card dashboard-header">
-        <div className="container dashboard-header-content">
-          <div className="dashboard-brand">
-            <strong>Universidad Digital</strong>
-            <span className="dashboard-user">{user?.full_name}</span>
-            <span className="dashboard-roles">{roles.join(", ")}</span>
-          </div>
-          <div className="dashboard-actions">
-            <ThemeToggle />
-            <Button variant="secondary" onClick={() => void logout()}>
-              Cerrar sesion
-            </Button>
-          </div>
-        </div>
-      </header>
-
-      <div className={`container dashboard-grid ${isSidebarVisible ? "" : "sidebar-hidden"}`.trim()}>
+    <div className="dashboard-shell">
+      <div className={`dashboard-grid ${isSidebarVisible ? "" : "sidebar-hidden"}`.trim()}>
         <aside className="sidebar-panel">
-          <button
-            type="button"
-            className="sidebar-symbol-toggle"
-            onClick={() => setSidebarVisible((current) => !current)}
-            aria-controls="main-sidebar"
-            aria-expanded={isSidebarVisible}
-            aria-label={isSidebarVisible ? "Ocultar menu" : "Mostrar menu"}
-            title={isSidebarVisible ? "Ocultar menu" : "Mostrar menu"}
-          >
-            <span className="sidebar-symbol-bar" />
-            <span className="sidebar-symbol-bar" />
-            <span className="sidebar-symbol-bar" />
-          </button>
-          {isSidebarVisible ? (
-            <nav id="main-sidebar" aria-label="Menu principal" className="sidebar">
-              <div className="sidebar-header">
-                <div className="sidebar-title">Menu</div>
-                <div className="sidebar-subtitle">Navegacion principal</div>
-              </div>
-              <ul className="sidebar-list">
-                {navItems.map(({ to, label, Icon }) => (
-                  <li key={to}>
-                    <NavLink to={to} className={({ isActive }) => `sidebar-link${isActive ? " active" : ""}`}>
-                      <Icon className="sidebar-icon" aria-hidden="true" />
-                      <span>{label}</span>
-                    </NavLink>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          ) : null}
+          <div className="sidebar-panel-inner">
+            <div className="sidebar-topbar">
+              <button
+                type="button"
+                className="sidebar-symbol-toggle"
+                onClick={() => setSidebarVisible((current) => !current)}
+                aria-controls="main-sidebar"
+                aria-expanded={isSidebarVisible}
+                aria-label={isSidebarVisible ? "Ocultar menu" : "Mostrar menu"}
+                title={isSidebarVisible ? "Ocultar menu" : "Mostrar menu"}
+              >
+                <span className="sidebar-symbol-bar" />
+                <span className="sidebar-symbol-bar" />
+                <span className="sidebar-symbol-bar" />
+              </button>
+              {isSidebarVisible ? <span className="sidebar-topbar-label">Menu</span> : null}
+            </div>
+            {isSidebarVisible ? (
+              <nav id="main-sidebar" aria-label="Menu principal" className="sidebar">
+                <div className="sidebar-header">
+                  <div className="sidebar-title">Universidad Digital</div>
+                  <div className="sidebar-subtitle">Panel principal del sistema</div>
+                </div>
+                <div className="sidebar-user-card">
+                  <strong>{user?.full_name}</strong>
+                  <span>{roles.join(", ")}</span>
+                </div>
+                <ul className="sidebar-list">
+                  {navItems.map(({ to, label, Icon }) => (
+                    <li key={to}>
+                      <NavLink to={to} className={({ isActive }) => `sidebar-link${isActive ? " active" : ""}`}>
+                        <Icon className="sidebar-icon" aria-hidden="true" />
+                        <span>{label}</span>
+                      </NavLink>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            ) : null}
+          </div>
         </aside>
-        <main className="dashboard-main">{children}</main>
+        <div className="dashboard-main-shell">
+          <header className="card dashboard-header">
+            <div className="dashboard-header-content">
+              <div className="dashboard-brand">
+                <strong>Bienvenido</strong>
+                <span className="dashboard-user">{user?.full_name}</span>
+                <span className="dashboard-roles">{roles.join(", ")}</span>
+              </div>
+              <div className="dashboard-actions">
+                <ThemeToggle />
+                <Button variant="secondary" onClick={() => void logout()}>
+                  Cerrar sesion
+                </Button>
+              </div>
+            </div>
+          </header>
+          <main className="dashboard-main">{children}</main>
+        </div>
       </div>
     </div>
   );

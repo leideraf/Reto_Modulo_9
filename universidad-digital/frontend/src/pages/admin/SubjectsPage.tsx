@@ -24,8 +24,10 @@ const updateSchema = z.object({
   credits: z.coerce.number().min(1).max(30).optional()
 });
 
-type CreateForm = z.infer<typeof createSchema>;
-type UpdateForm = z.infer<typeof updateSchema>;
+type CreateForm = z.input<typeof createSchema>;
+type CreateSubmit = z.output<typeof createSchema>;
+type UpdateForm = z.input<typeof updateSchema>;
+type UpdateSubmit = z.output<typeof updateSchema>;
 
 export function SubjectsPage() {
   const [alert, setAlert] = useState<{ message: string; variant: "success" | "error" } | null>(
@@ -33,10 +35,10 @@ export function SubjectsPage() {
   );
   const { data: subjects, error, isLoading, reload } = useFetch(subjectsService.list, []);
 
-  const createForm = useForm<CreateForm>({ resolver: zodResolver(createSchema) });
-  const updateForm = useForm<UpdateForm>({ resolver: zodResolver(updateSchema) });
+  const createForm = useForm<CreateForm, unknown, CreateSubmit>({ resolver: zodResolver(createSchema) });
+  const updateForm = useForm<UpdateForm, unknown, UpdateSubmit>({ resolver: zodResolver(updateSchema) });
 
-  const handleCreate = async (values: CreateForm) => {
+  const handleCreate = async (values: CreateSubmit) => {
     try {
       await subjectsService.create(values);
       setAlert({ message: "Materia creada.", variant: "success" });
@@ -47,7 +49,7 @@ export function SubjectsPage() {
     }
   };
 
-  const handleUpdate = async (values: UpdateForm) => {
+  const handleUpdate = async (values: UpdateSubmit) => {
     try {
       await subjectsService.update(Number(values.id), {
         name: values.name || undefined,

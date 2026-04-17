@@ -26,8 +26,10 @@ const updateSchema = z.object({
   notes: z.string().optional()
 });
 
-type CreateForm = z.infer<typeof createSchema>;
-type UpdateForm = z.infer<typeof updateSchema>;
+type CreateForm = z.input<typeof createSchema>;
+type CreateSubmit = z.output<typeof createSchema>;
+type UpdateForm = z.input<typeof updateSchema>;
+type UpdateSubmit = z.output<typeof updateSchema>;
 
 export function GradesPage() {
   const [alert, setAlert] = useState<{ message: string; variant: "success" | "error" } | null>(
@@ -36,8 +38,8 @@ export function GradesPage() {
   const { data: grades, error, isLoading, reload } = useFetch(gradesService.list, []);
   const { data: enrollments } = useFetch(enrollmentsService.list, []);
 
-  const createForm = useForm<CreateForm>({ resolver: zodResolver(createSchema) });
-  const updateForm = useForm<UpdateForm>({ resolver: zodResolver(updateSchema) });
+  const createForm = useForm<CreateForm, unknown, CreateSubmit>({ resolver: zodResolver(createSchema) });
+  const updateForm = useForm<UpdateForm, unknown, UpdateSubmit>({ resolver: zodResolver(updateSchema) });
 
   const enrollmentOptions =
     enrollments?.map((enrollment) => ({
@@ -45,7 +47,7 @@ export function GradesPage() {
       label: `Inscripción #${enrollment.id}`
     })) ?? [];
 
-  const handleCreate = async (values: CreateForm) => {
+  const handleCreate = async (values: CreateSubmit) => {
     try {
       await gradesService.create({
         enrollment_id: Number(values.enrollment_id),
@@ -60,7 +62,7 @@ export function GradesPage() {
     }
   };
 
-  const handleUpdate = async (values: UpdateForm) => {
+  const handleUpdate = async (values: UpdateSubmit) => {
     try {
       await gradesService.update(Number(values.id), {
         value: values.value ?? undefined,

@@ -11,8 +11,8 @@ import { useAuth } from "../hooks/useAuth";
 import { sanitizeText } from "../utils/sanitize";
 
 const loginSchema = z.object({
-  email: z.string().email("Ingresa un email válido."),
-  password: z.string().min(8, "La contraseña debe tener al menos 8 caracteres.")
+  email: z.string().email("Ingresa un email valido."),
+  password: z.string().min(8, "La contrasena debe tener al menos 8 caracteres.")
 });
 
 type LoginForm = z.infer<typeof loginSchema>;
@@ -42,25 +42,35 @@ export function LoginPage() {
 
   return (
     <AuthLayout>
-      <h1>Iniciar sesión</h1>
-      {error ? <Alert message={error} /> : null}
-      <form onSubmit={handleSubmit(onSubmit)} className="grid">
-        <Input
-          label="Correo electrónico"
-          type="email"
-          {...register("email")}
-          error={errors.email?.message}
-        />
-        <Input
-          label="Contraseña"
-          type="password"
-          {...register("password")}
-          error={errors.password?.message}
-        />
-        <Button type="submit" disabled={isSubmitting}>
-          Entrar
-        </Button>
-      </form>
+      <div className="login-panel">
+        <div className="login-heading">
+          <span className="login-eyebrow">Bienvenido</span>
+          <h2>Inicia sesion</h2>
+          <p>Ingresa con tus credenciales para continuar en Universidad Digital.</p>
+        </div>
+        {error ? <Alert message={error} /> : null}
+        <form onSubmit={handleSubmit(onSubmit)} className="grid login-form">
+          <Input
+            label="Correo electronico"
+            type="email"
+            placeholder="correo@universidad.edu"
+            autoComplete="email"
+            {...register("email")}
+            error={errors.email?.message}
+          />
+          <Input
+            label="Contrasena"
+            type="password"
+            placeholder="Ingresa tu contrasena"
+            autoComplete="current-password"
+            {...register("password")}
+            error={errors.password?.message}
+          />
+          <Button type="submit" disabled={isSubmitting} className="login-submit">
+            {isSubmitting ? "Ingresando..." : "Entrar al sistema"}
+          </Button>
+        </form>
+      </div>
     </AuthLayout>
   );
 }
