@@ -210,7 +210,7 @@ Si necesitas mas detalle tecnico por modulo, puedes revisar:
 
 
 Autor: Leider Elian Arias Franco
-Programa: Python
-Módulo: 9
-Video: https://youtu.be/B7V2nOp0a1Q
+- Programa: Python
+- Módulo: 9
+- Video: https://youtu.be/B7V2nOp0a1Q
 
